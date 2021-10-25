@@ -32,3 +32,15 @@
     padding: 1vw;
     background-color: cornflowerblue;
 }
+
+#UVI {
+    padding: 0vw 2vw;
+    color: black;
+}
+
+.todayWeather {
+    border: black;
+    border-style: solid;
+    border-width: 0.5vw;
+    padding: 1vw;
+}

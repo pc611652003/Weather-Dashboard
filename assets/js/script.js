@@ -27,7 +27,7 @@ var dummycurrentResult = {
     temp: "57.27",
     wind: "26.46",
     humidity: "64",
-    uvi: "0"
+    uvi: "16"
 }
 var dummyforecastResult = [
     {icon: "10d", temp: "59.54", wind: "26.35", humidity: "50"},
@@ -82,6 +82,24 @@ var displayCurrentWeather = function () {
     WindDisplay.textContent = dummycurrentResult.wind;
     HumidityDisplay.textContent = dummycurrentResult.humidity;
     UVIDisplay.textContent = dummycurrentResult.uvi;
+
+    if (dummycurrentResult.uvi < 2.5) {
+        UVIDisplay.setAttribute("style", "background : green");
+    } else {
+        if (dummycurrentResult.uvi < 5.5) {
+            UVIDisplay.setAttribute("style", "background : yellow");
+        } else {
+            if (dummycurrentResult.uvi < 7.5) {
+                UVIDisplay.setAttribute("style", "background : orange");
+            } else {
+                if (dummycurrentResult.uvi < 10.5) {
+                    UVIDisplay.setAttribute("style", "background : red");
+                } else {
+                    UVIDisplay.setAttribute("style", "background : violet");
+                }
+            }
+        }
+    }
 }
 
 var displayForecastWeather = function (i) {
