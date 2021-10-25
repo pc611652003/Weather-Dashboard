@@ -49,5 +49,14 @@ URL of the deployed application : https://pc611652003.github.io/Weather-Dashboar
 
 URL of the GitHub repository : https://github.com/pc611652003/Weather-Dashboard
 
-The Application will start at this page with local storage loaded.
-![Main Page](screenshots/Main_Page.PNG "Starting page of the application")
+The Application will start at this page.
+![Start Page](screenshots/Starting.PNG "Starting page of the application")
+
+The Application will display the current weather and forecast the next five day weather.
+![Search Page](screenshots/Searching.PNG "Searching page of the application")
+
+The UV-index value will change its color coding.
+![UVindex Page](screenshots/UVindex.PNG "UV-index change the color in the application")
+
+Pressing the Clear Button will delete all history and local storage.
+![Clear Page](screenshots/Clearing.PNG "Page of the application after clearing")

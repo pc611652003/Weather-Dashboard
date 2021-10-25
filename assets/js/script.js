@@ -20,22 +20,22 @@ var forecastResult = [
     {icon: "", temp: "", wind: "", humidity: ""}
 ]
 
-// dummy for testing
-var dummycurrentResult = {
-    city: "salt lake city",
-    icon: "04n",
-    temp: "57.27",
-    wind: "26.46",
-    humidity: "64",
-    uvi: "16"
-}
-var dummyforecastResult = [
-    {icon: "10d", temp: "59.54", wind: "26.35", humidity: "50"},
-    {icon: "10d", temp: "66.33", wind: "47.76", humidity: "37"},
-    {icon: "10d", temp: "45.19", wind: "24.58", humidity: "66"},
-    {icon: "10d", temp: "48.94", wind: "13.69", humidity: "60"},
-    {icon: "04d", temp: "54.07", wind: "8.46", humidity: "56"}
-]
+// // dummy for testing
+// var dummycurrentResult = {
+//     city: "Salt Lake City",
+//     icon: "04n",
+//     temp: "57.27",
+//     wind: "26.46",
+//     humidity: "64",
+//     uvi: "16"
+// }
+// var dummyforecastResult = [
+//     {icon: "10d", temp: "59.54", wind: "26.35", humidity: "50"},
+//     {icon: "10d", temp: "66.33", wind: "47.76", humidity: "37"},
+//     {icon: "10d", temp: "45.19", wind: "24.58", humidity: "66"},
+//     {icon: "10d", temp: "48.94", wind: "13.69", humidity: "60"},
+//     {icon: "04d", temp: "54.07", wind: "8.46", humidity: "56"}
+// ]
 
 // Create and Display Buttons for Search History
 var updateButton = function () {
@@ -58,6 +58,24 @@ var updateButton = function () {
     }   
 }
 
+// Clear all Weather Display
+var clearWeatherDisplay = function () {
+    var PlaceTimeDisplay = document.getElementById("PlaceTime");
+    var TempDisplay = document.getElementById("Temp");
+    var WindDisplay = document.getElementById("Wind");
+    var HumidityDisplay = document.getElementById("Humidity");
+    var UVIDisplay = document.getElementById("UVI");
+
+    PlaceTimeDisplay.textContent = "";
+    TempDisplay.textContent = "";
+    WindDisplay.textContent = "";
+    HumidityDisplay.textContent = "";
+    UVIDisplay.textContent = "";
+
+    forecastContainer.textContent = "";
+}
+
+// Display the Current Weather
 var displayCurrentWeather = function () {
     var PlaceTimeDisplay = document.getElementById("PlaceTime");
     var TempDisplay = document.getElementById("Temp");
@@ -68,8 +86,8 @@ var displayCurrentWeather = function () {
     var WeatherIconDisplay = document.createElement("img");
 
     var currentDate = moment().format("M/D/Y");
-    var targetCity = dummycurrentResult.city;
-    var iconLink = "http://openweathermap.org/img/wn/" + dummycurrentResult.icon + "@2x.png";
+    var targetCity = currentResult.city;
+    var iconLink = "http://openweathermap.org/img/wn/" + currentResult.icon + "@2x.png";
 
     WeatherIconDisplay.setAttribute("src", iconLink);
     WeatherIconDisplay.setAttribute("alt", "Weather Icon");
@@ -78,21 +96,22 @@ var displayCurrentWeather = function () {
     
     PlaceTimeDisplay.textContent = targetCity + " (" + currentDate + ") ";
     PlaceTimeDisplay.appendChild(WeatherIconDisplay);
-    TempDisplay.textContent = dummycurrentResult.temp;
-    WindDisplay.textContent = dummycurrentResult.wind;
-    HumidityDisplay.textContent = dummycurrentResult.humidity;
-    UVIDisplay.textContent = dummycurrentResult.uvi;
+    TempDisplay.textContent = currentResult.temp;
+    WindDisplay.textContent = currentResult.wind;
+    HumidityDisplay.textContent = currentResult.humidity;
+    UVIDisplay.textContent = currentResult.uvi;
 
-    if (dummycurrentResult.uvi < 2.5) {
+    // UV-Index color coding
+    if (currentResult.uvi < 2.5) {
         UVIDisplay.setAttribute("style", "background : green");
     } else {
-        if (dummycurrentResult.uvi < 5.5) {
+        if (currentResult.uvi < 5.5) {
             UVIDisplay.setAttribute("style", "background : yellow");
         } else {
-            if (dummycurrentResult.uvi < 7.5) {
+            if (currentResult.uvi < 7.5) {
                 UVIDisplay.setAttribute("style", "background : orange");
             } else {
-                if (dummycurrentResult.uvi < 10.5) {
+                if (currentResult.uvi < 10.5) {
                     UVIDisplay.setAttribute("style", "background : red");
                 } else {
                     UVIDisplay.setAttribute("style", "background : violet");
@@ -102,8 +121,9 @@ var displayCurrentWeather = function () {
     }
 }
 
+// Display the Forecast Weather
 var displayForecastWeather = function (i) {
-    var iconLink = "http://openweathermap.org/img/wn/" + dummyforecastResult[i].icon + "@2x.png";
+    var iconLink = "http://openweathermap.org/img/wn/" + forecastResult[i].icon + "@2x.png";
 
     var WeatherCard = document.createElement("div");
     var DateDisplay = document.createElement("h3");
@@ -118,9 +138,9 @@ var displayForecastWeather = function (i) {
     IconDisplay.setAttribute("alt", "Weather Icon");
     IconDisplay.setAttribute("id", "WeatherIcon" + i);
     IconDisplay.setAttribute("class", "Weather-Icon");
-    TempDisplay.textContent = "Temp: " + dummyforecastResult[i].temp + " ℉";
-    WindDisplay.textContent = "Wind: " + dummyforecastResult[i].wind + " MPH";
-    HumidityDisplay.textContent = "Humidity: " + dummyforecastResult[i].humidity + " %";
+    TempDisplay.textContent = "Temp: " + forecastResult[i].temp + " ℉";
+    WindDisplay.textContent = "Wind: " + forecastResult[i].wind + " MPH";
+    HumidityDisplay.textContent = "Humidity: " + forecastResult[i].humidity + " %";
 
     forecastContainer.appendChild(WeatherCard);
     WeatherCard.appendChild(DateDisplay);
@@ -132,6 +152,7 @@ var displayForecastWeather = function (i) {
 
 // Display Weather Data on the Page
 var displayWeather = function () {
+    clearWeatherDisplay();
     displayCurrentWeather();
     for (var i = 0; i < 5; i++) {
         displayForecastWeather(i);
@@ -264,4 +285,5 @@ searchHistoryButtons.addEventListener("click", searchFromHistory);
 clickClearBtn.addEventListener("click", clearSearchHistory);
 
 updateButton();
-displayWeather();
+clearWeatherDisplay();
+//displayWeather();

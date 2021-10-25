@@ -7,30 +7,41 @@
     font-size: 16px;
     border-radius: 10px;
     text-align: center;
+    width: 100%;
+}
+
+#inputName {
+    width: 100%;
+}
+
+.card {
+    align-items: center;
+    text-align: center;
+    width: 100%
 }
 
 #searchBtn {
     color: cornsilk;
     background-color: dodgerblue;
+    width: 90%;
 }
 
 #clearBtn {
     color: black;
     background-color: crimson;
+    width: 90%;
 }
 
 #forecast-title {
     margin: 4vw 0vw 0vw 0vw;
 }
 
-#forecast-container {
-    display: flex;
-}
-
 .forecast-card {
-    margin: 1vw;
+    margin: 0.5vw;
     padding: 1vw;
     background-color: cornflowerblue;
+    display: inline-block;
+    width: 15vw;
 }
 
 #UVI {
