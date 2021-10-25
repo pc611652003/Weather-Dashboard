@@ -36,7 +36,7 @@ var dummyforecastResult = [
     {icon: "04d", temp: "54.07", wind: "8.46", humidity: "56"}
 ]
 
-
+// Create and Display Buttons for Search History
 var updateButton = function () {
     var searchHistory = localStorage.getItem("searchHistory");
     
@@ -57,15 +57,21 @@ var updateButton = function () {
     }   
 }
 
+// Display Weather Data on the Page
 var displayWeather = function () {
     console.log("Displaying stuff!");
 }
 
+// Clear Local Storage
 var clearSearchHistory = function () {
     localStorage.setItem("searchHistory", "");
     updateButton();
 }
 
+// Get all the weather data
+//  -> fetch data with latitude and longitude
+//  -> Get the weather data
+//  -> Call display weather
 var searchWeather = function (lat, lon) {
     console.log("Searching Local Weather ...");
     var apiUrl = "https://api.openweathermap.org/data/2.5/onecall?lat="
@@ -75,30 +81,36 @@ var searchWeather = function (lat, lon) {
         // request was successful
         if (response.ok) {
           response.json().then(function(data) {
-            console.log("Waiting");
-            console.log(data);
-            // pass response data to dom function
+            
+            // Get today's weather
             currentResult.icon = data.current.weather[0].icon;
             currentResult.temp = data.current.temp;
             currentResult.wind = data.current.wind_gust;
             currentResult.humidity = data.current.humidity;
             currentResult.uvi = data.current.uvi;
 
+            // Get the 5 day forecast
             for (var i = 0; i < 5; i++) {
                 forecastResult[i].icon = data.daily[i].weather[0].icon;
                 forecastResult[i].temp = data.daily[i].temp.day;
                 forecastResult[i].wind = data.daily[i].wind_gust;
                 forecastResult[i].humidity = data.daily[i].humidity;
             }
+
+            displayWeather();
           });
         }
         else {
             console.log("Open Weather Map is having trouble.");
         }
     });
-    displayWeather();
+    
 }
 
+// Get the latitude and longitude of the searching city
+//  -> fetch data with city name
+//  -> extract the latitude and longitude
+//  -> call function searchWeather
 var searchCity = function (targetCity) {
     var apiUrl = "http://api.positionstack.com/v1/forward?access_key=f59818feb06f5f1f15fb99327eca6c1b&query=" + targetCity + "&limit=1";
 
@@ -118,13 +130,20 @@ var searchCity = function (targetCity) {
     });
 }
 
+// Master function triggered by Search Button
+//  -> no real response if input value is empty string
+//  -> if input value is valid
+//      -> store input value to local storage
+//      -> create button for the search history
+//      -> call function searchCity
 var masterSearch = function (event) {
     event.preventDefault();
 
-    var searchHistory = localStorage.getItem("searchHistory");
-    currentResult.city = searchInputValue.value;
-
     if (searchInputValue.value) {
+
+        var searchHistory = localStorage.getItem("searchHistory");
+        currentResult.city = searchInputValue.value;
+
         if (!searchHistory) {
             var temp = [];
             temp.push(searchInputValue.value);
@@ -153,7 +172,19 @@ var masterSearch = function (event) {
     }
 }
 
+// Function triggered by Search History Buttons
+//  -> Get the Location Info Stored in the button
+//  -> Call searchCity with it
+var searchFromHistory = function (event) {
+
+    if (event.target.className == "btn") {
+        var targetCity = event.target.getAttribute("data-target");
+        searchCity(targetCity);
+    }
+}
+
 submitSearchBtn.addEventListener("click", masterSearch);
+searchHistoryButtons.addEventListener("click", searchFromHistory);
 clickClearBtn.addEventListener("click", clearSearchHistory);
 
 updateButton();
