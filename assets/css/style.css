@@ -18,3 +18,17 @@
     color: black;
     background-color: crimson;
 }
+
+#forecast-title {
+    margin: 4vw 0vw 0vw 0vw;
+}
+
+#forecast-container {
+    display: flex;
+}
+
+.forecast-card {
+    margin: 1vw;
+    padding: 1vw;
+    background-color: cornflowerblue;
+}

@@ -2,6 +2,7 @@ var submitSearchBtn = document.getElementById("searchBtn");
 var searchInputValue = document.getElementById("inputName");
 var searchHistoryButtons = document.getElementById("history-buttons");
 var clickClearBtn = document.getElementById("clearBtn");
+var forecastContainer = document.getElementById("forecast-container");
 
 var currentResult = {
     city: "",
@@ -57,9 +58,66 @@ var updateButton = function () {
     }   
 }
 
+var displayCurrentWeather = function () {
+    var PlaceTimeDisplay = document.getElementById("PlaceTime");
+    var TempDisplay = document.getElementById("Temp");
+    var WindDisplay = document.getElementById("Wind");
+    var HumidityDisplay = document.getElementById("Humidity");
+    var UVIDisplay = document.getElementById("UVI");
+
+    var WeatherIconDisplay = document.createElement("img");
+
+    var currentDate = moment().format("M/D/Y");
+    var targetCity = dummycurrentResult.city;
+    var iconLink = "http://openweathermap.org/img/wn/" + dummycurrentResult.icon + "@2x.png";
+
+    WeatherIconDisplay.setAttribute("src", iconLink);
+    WeatherIconDisplay.setAttribute("alt", "Weather Icon");
+    WeatherIconDisplay.setAttribute("id", "WeatherIcon");
+    WeatherIconDisplay.setAttribute("class", "Weather-Icon");
+    
+    PlaceTimeDisplay.textContent = targetCity + " (" + currentDate + ") ";
+    PlaceTimeDisplay.appendChild(WeatherIconDisplay);
+    TempDisplay.textContent = dummycurrentResult.temp;
+    WindDisplay.textContent = dummycurrentResult.wind;
+    HumidityDisplay.textContent = dummycurrentResult.humidity;
+    UVIDisplay.textContent = dummycurrentResult.uvi;
+}
+
+var displayForecastWeather = function (i) {
+    var iconLink = "http://openweathermap.org/img/wn/" + dummyforecastResult[i].icon + "@2x.png";
+
+    var WeatherCard = document.createElement("div");
+    var DateDisplay = document.createElement("h3");
+    var IconDisplay = document.createElement("img");
+    var TempDisplay = document.createElement("h5");
+    var WindDisplay = document.createElement("h5");
+    var HumidityDisplay = document.createElement("h5");
+
+    WeatherCard.setAttribute("class", "forecast-card");
+    DateDisplay.textContent = moment().add(i + 1, "days").format("M/D/Y");
+    IconDisplay.setAttribute("src", iconLink);
+    IconDisplay.setAttribute("alt", "Weather Icon");
+    IconDisplay.setAttribute("id", "WeatherIcon" + i);
+    IconDisplay.setAttribute("class", "Weather-Icon");
+    TempDisplay.textContent = "Temp: " + dummyforecastResult[i].temp + " ℉";
+    WindDisplay.textContent = "Wind: " + dummyforecastResult[i].wind + " MPH";
+    HumidityDisplay.textContent = "Humidity: " + dummyforecastResult[i].humidity + " %";
+
+    forecastContainer.appendChild(WeatherCard);
+    WeatherCard.appendChild(DateDisplay);
+    WeatherCard.appendChild(IconDisplay);
+    WeatherCard.appendChild(TempDisplay);
+    WeatherCard.appendChild(WindDisplay);
+    WeatherCard.appendChild(HumidityDisplay);
+}
+
 // Display Weather Data on the Page
 var displayWeather = function () {
-    console.log("Displaying stuff!");
+    displayCurrentWeather();
+    for (var i = 0; i < 5; i++) {
+        displayForecastWeather(i);
+    }
 }
 
 // Clear Local Storage
@@ -188,3 +246,4 @@ searchHistoryButtons.addEventListener("click", searchFromHistory);
 clickClearBtn.addEventListener("click", clearSearchHistory);
 
 updateButton();
+displayWeather();
