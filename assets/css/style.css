@@ -1,13 +1,15 @@
+body {
+    margin : 0vw 1vw;
+}
+
 .btn {
     margin: 0.5vw;
-    color: black;
-    background-color: dimgray;
     border: none;
     padding: 10px 20px;
     font-size: 16px;
     border-radius: 10px;
     text-align: center;
-    width: 100%;
+    font-weight: bold;
 }
 
 #inputName {
@@ -20,6 +22,10 @@
     width: 100%
 }
 
+.card-header {
+    width: 100%;
+}
+
 #searchBtn {
     color: cornsilk;
     background-color: dodgerblue;
@@ -30,6 +36,12 @@
     color: black;
     background-color: crimson;
     width: 90%;
+}
+
+.historyBtn {
+    color:blanchedalmond;
+    background-color: dimgray;
+    width: 100%;
 }
 
 #forecast-title {

@@ -49,7 +49,7 @@ var updateButton = function () {
             for (var i = 0; i < searchHistoryRecord.length; i++) {
                 var searchHistoryButtonEl = document.createElement("button");
                 searchHistoryButtonEl.setAttribute("type", "button");
-                searchHistoryButtonEl.setAttribute("class", "btn");
+                searchHistoryButtonEl.setAttribute("class", "btn historyBtn");
                 searchHistoryButtonEl.setAttribute("data-target", searchHistoryRecord[i]);
                 searchHistoryButtonEl.textContent = searchHistoryRecord[i];
                 searchHistoryButtons.appendChild(searchHistoryButtonEl);
