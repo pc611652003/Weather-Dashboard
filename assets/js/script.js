@@ -87,7 +87,7 @@ var displayCurrentWeather = function () {
 
     var currentDate = moment().format("M/D/Y");
     var targetCity = currentResult.city;
-    var iconLink = "http://openweathermap.org/img/wn/" + currentResult.icon + "@2x.png";
+    var iconLink = "https://openweathermap.org/img/wn/" + currentResult.icon + "@2x.png";
 
     WeatherIconDisplay.setAttribute("src", iconLink);
     WeatherIconDisplay.setAttribute("alt", "Weather Icon");
@@ -123,7 +123,7 @@ var displayCurrentWeather = function () {
 
 // Display the Forecast Weather
 var displayForecastWeather = function (i) {
-    var iconLink = "http://openweathermap.org/img/wn/" + forecastResult[i].icon + "@2x.png";
+    var iconLink = "https://openweathermap.org/img/wn/" + forecastResult[i].icon + "@2x.png";
 
     var WeatherCard = document.createElement("div");
     var DateDisplay = document.createElement("h3");
@@ -209,7 +209,7 @@ var searchWeather = function (lat, lon) {
 //  -> extract the latitude and longitude
 //  -> call function searchWeather
 var searchCity = function (targetCity) {
-    var apiUrl = "http://api.positionstack.com/v1/forward?access_key=f59818feb06f5f1f15fb99327eca6c1b&query=" + targetCity + "&limit=1";
+    var apiUrl = "https://api.positionstack.com/v1/forward?access_key=f59818feb06f5f1f15fb99327eca6c1b&query=" + targetCity + "&limit=1";
 
     fetch(apiUrl).then(function(response) {
         // request was successful
