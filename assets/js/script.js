@@ -172,7 +172,7 @@ var clearSearchHistory = function () {
 var searchWeather = function (lat, lon) {
     console.log("Searching Local Weather ...");
     var apiUrl = "https://api.openweathermap.org/data/2.5/onecall?lat="
-    + lat + "&lon=" + lon + "&exclude=hourly,minutely&units=imperial&appid=7888b0b3f54eed5b3244e18d1cfc2e1d";
+    + lat + "&lon=" + lon + "&exclude=hourly,minutely&units=imperial&appid=24edb99d7b5d8af30339fd09bae5d9a3";
 
     fetch(apiUrl).then(function(response) {
         // request was successful
@@ -200,6 +200,9 @@ var searchWeather = function (lat, lon) {
         else {
             console.log("Open Weather Map is having trouble.");
         }
+    })
+    .catch(err => {
+        console.error(err);
     });
     
 }
@@ -209,7 +212,7 @@ var searchWeather = function (lat, lon) {
 //  -> extract the latitude and longitude
 //  -> call function searchWeather
 var searchCity = function (targetCity) {
-    var apiUrl = "https://api.positionstack.com/v1/forward?access_key=f59818feb06f5f1f15fb99327eca6c1b&query=" + targetCity + "&limit=1";
+    var apiUrl = "http://api.positionstack.com/v1/forward?access_key=d5e4884d0c6c3a6e7ea836f154f2c810&query=" + targetCity + "&limit=1";
 
     fetch(apiUrl).then(function(response) {
         // request was successful
@@ -224,6 +227,9 @@ var searchCity = function (targetCity) {
         else {
             console.log("Position Stack is having trouble.");
         }
+    })
+    .catch(err => {
+        console.error(err);
     });
 }
 
