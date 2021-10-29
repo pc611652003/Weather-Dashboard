@@ -212,7 +212,7 @@ var searchWeather = function (lat, lon) {
 //  -> extract the latitude and longitude
 //  -> call function searchWeather
 var searchCity = function (targetCity) {
-    var apiUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + targetCity + "&limit=1&appid=24edb99d7b5d8af30339fd09bae5d9a3";
+    var apiUrl = "https://api.openweathermap.org/geo/1.0/direct?q=" + targetCity + "&limit=1&appid=24edb99d7b5d8af30339fd09bae5d9a3";
 
     fetch(apiUrl).then(function(response) {
         // request was successful
