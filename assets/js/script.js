@@ -212,20 +212,20 @@ var searchWeather = function (lat, lon) {
 //  -> extract the latitude and longitude
 //  -> call function searchWeather
 var searchCity = function (targetCity) {
-    var apiUrl = "http://api.positionstack.com/v1/forward?access_key=d5e4884d0c6c3a6e7ea836f154f2c810&query=" + targetCity + "&limit=1";
+    var apiUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + targetCity + "&limit=1&appid=24edb99d7b5d8af30339fd09bae5d9a3";
 
     fetch(apiUrl).then(function(response) {
         // request was successful
         if (response.ok) {
           response.json().then(function(data) {
             // Get latitude and longitude to search weather
-            var lat = data.data[0].latitude;
-            var lon = data.data[0].longitude;
+            var lat = data[0].lat;
+            var lon = data[0].lon;
             searchWeather(lat, lon);
           });
         }
         else {
-            console.log("Position Stack is having trouble.");
+            console.log("Location is having trouble.");
         }
     })
     .catch(err => {
@@ -280,8 +280,9 @@ var masterSearch = function (event) {
 //  -> Call searchCity with it
 var searchFromHistory = function (event) {
 
-    if (event.target.className == "btn") {
+    if (event.target.className == "btn historyBtn") {
         var targetCity = event.target.getAttribute("data-target");
+        currentResult.city = targetCity;
         searchCity(targetCity);
     }
 }
